@@ -43,9 +43,12 @@
   <ItemGroup>
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceLab.cs" />
     <Compile Include="Service\Cliente\ICliente.cs" />
     <Compile Include="Service\Documento\DocumentoImpl.cs" />
     <Compile Include="Service\Documento\IDocumento.cs" />
+    <Compile Include="Service\StartApp\IStartApp.cs" />
+    <Compile Include="Service\StartApp\StartAppImpl.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,5 @@
 ﻿using LibApp.Service.Documento;
+using LibApp.Service.StartApp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,12 @@ namespace ConsoleApp {
     class Program {
 
         private static IDocumento DocumentoService = ServiceLocator.GetInstanceOf<DocumentoImpl>();
+        private static IStartApp StartService = ServiceLocator.GetInstanceOf<StartAppImpl>();
 
         static void Main(string[] args) {
 
-            Console.WriteLine(DocumentoService.HaveDirectory());
 
+            StartService.start();
 
             Console.ReadKey();
 

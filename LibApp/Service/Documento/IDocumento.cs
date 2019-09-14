@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace LibApp.Service.Documento {
     public interface IDocumento {
 
-        Boolean HaveDirectory();
+        Boolean HaveDirectory(String DirectoryName);
+
+        Boolean CreateDirectory(String DirectoryName);
 
         Boolean HavePrincipalFile();
     }
