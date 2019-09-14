@@ -11,6 +11,8 @@ namespace LibApp.Service.Documento {
 
         Boolean CreateDirectory(String DirectoryName);
 
-        Boolean HavePrincipalFile();
+        Boolean HavePrincipalFile(String DirectoryName, String FileName);
+
+        void CreatePrincipalFile(String DirectoryName, String FileName);
     }
 }

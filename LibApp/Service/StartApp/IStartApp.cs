@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace LibApp.Service.StartApp {
     public interface IStartApp {
 
-        bool start();
+        void start();
     }
 }

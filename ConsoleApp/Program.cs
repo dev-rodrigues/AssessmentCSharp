@@ -14,11 +14,12 @@ namespace ConsoleApp {
 
         static void Main(string[] args) {
 
+            Console.WriteLine("App running");
 
             StartService.start();
 
             Console.ReadKey();
-
+            Console.WriteLine("App stopping");
         }
     }
 }
