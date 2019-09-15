@@ -12,7 +12,7 @@ namespace LibApp.DAO.UsuarioDAO {
         const string DIRECTORY_NAME = @"C:\assessment_carlos_henrique";
         const string FILE_DB_NAME = "db_file_name_carlos_henrique.txt";
 
-
+        // registra um usuario
         void IUsuarioDAO.Register(Usuario usuario) {
             string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
 
@@ -22,6 +22,12 @@ namespace LibApp.DAO.UsuarioDAO {
             }
         }
 
+        // retorna o proximo Id valido;
+        public int getNextId() {
+            return getUsuarios(getFile()).Count() + 1;
+        }
+
+        // busca um usuario
         Usuario IUsuarioDAO.Find(string Email, string Senha) {
             string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
             System.IO.StreamReader file = new System.IO.StreamReader(path);
@@ -40,19 +46,24 @@ namespace LibApp.DAO.UsuarioDAO {
             return obj;
         }
 
+        // verifica se existe algum usuario cadastrado
+        //PODE DAR ERRO - TESTAR
         bool IUsuarioDAO.HasRegisteredUser() {
-            string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
-            System.IO.StreamReader file = new System.IO.StreamReader(path);
-            List<Usuario> Usuarios = getUsuarios(file);
-            file.Close();
+            List<Usuario> Usuarios = getUsuarios(getFile());
             if (Usuarios.Count() == 0) {
                 return false;
             }
             return true;
         }
 
+        private System.IO.StreamReader getFile() {
+            string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
+            System.IO.StreamReader file = new System.IO.StreamReader(path);
+            return file;
+        }
+
+        // retorna uma lista de usuarios
         private List<Usuario> getUsuarios(System.IO.StreamReader arquivo) {
-            int counter = 0;
             string line;
             List<Usuario> Usuarios = new List<Usuario>();
 
@@ -65,16 +76,17 @@ namespace LibApp.DAO.UsuarioDAO {
                         Usuarios.Add(u);
                     }
                 }
-                counter++;
             }
             arquivo.Close();
             return Usuarios;
         }
 
+        // retorna uma string com os dados do obj para serem gravados
         private string ReturnLineObj(Usuario usuario) {
             return $"{usuario.Id},{usuario.Nome},{usuario.SobreNome},{usuario.Email},{usuario.Nascimento.ToString()},{usuario.Senha}";
         }
 
+        // retorna o path do local onde o arquivo está guardado
         private string ReturnPath(String DirectoryName, String FileName) {
             return System.IO.Path.Combine(DirectoryName, FileName);
         }

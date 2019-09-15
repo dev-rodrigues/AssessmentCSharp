@@ -12,7 +12,8 @@ namespace LibApp.Service.Usuario {
         private IUsuarioDAO UsuarioDAO = ServiceLab.GetInstanceOf<UsuarioDAOImpl>();
 
         public Model.Usuario Cadastrar(string[] dadosColetados) {
-            string id = "u_" + 1;
+            //BUSCAR ID
+            string id = "u_" + UsuarioDAO.getNextId();
 
             Model.Usuario newObj = new Model.Usuario(id, dadosColetados[0], dadosColetados[1], dadosColetados[2],
                 Convert.ToDateTime(dadosColetados[3]), dadosColetados[4]);

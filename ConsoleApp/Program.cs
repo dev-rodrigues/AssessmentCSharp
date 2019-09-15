@@ -27,14 +27,16 @@ namespace ConsoleApp {
                 string[] dados = Utils.SolicitarDadosCadastrar();
                 UsuarioService.Cadastrar(dados);
             } else {
-                string[] dadosLogin = Utils.SolicitarDadosLogar();
+                string[] dados = Utils.SolicitarDadosCadastrar();
+                UsuarioService.Cadastrar(dados);
+                //string[] dadosLogin = Utils.SolicitarDadosLogar();
 
-                var u = UsuarioService.Logar(dadosLogin);
-                if (u == null) {
-                    Console.WriteLine("erro ao logar");
-                } else {
-                    Console.WriteLine("logado com sucesso");
-                }
+                //var u = UsuarioService.Logar(dadosLogin);
+                //if (u == null) {
+                //    Console.WriteLine("erro ao logar");
+                //} else {
+                //    Console.WriteLine("logado com sucesso");
+                //}
             }
 
             Console.WriteLine("Aperte uma tecla para continuar...");

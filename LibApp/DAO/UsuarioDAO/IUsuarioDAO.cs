@@ -10,6 +10,8 @@ namespace LibApp.DAO.UsuarioDAO {
 
         void Register(Usuario usuario);
 
+        int getNextId();
+
         Model.Usuario Find(string nome, string senha);
 
         Boolean HasRegisteredUser();
