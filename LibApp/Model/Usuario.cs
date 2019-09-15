@@ -19,6 +19,8 @@ namespace LibApp.Model {
 
         public String Senha { get; set; }
 
+        public List<Amigo> amigos = new List<Amigo>();
+
         public Usuario() {
 
         }

@@ -77,6 +77,9 @@ namespace LibApp.DAO.UsuarioDAO {
                     }
                 }
             }
+
+            // buscar amigos dos usuarios
+
             arquivo.Close();
             return Usuarios;
         }
