@@ -10,9 +10,9 @@ namespace LibApp.Service.Usuario {
 
         private IUsuarioDAO UsuarioDAO = ServiceLab.GetInstanceOf<UsuarioDAOImpl>();
 
-        public Model.Usuario Cadastrar(string nome, string SobreNome, DateTime DataNascimento, string Senha) {
+        public Model.Usuario Cadastrar(String nome, String SobreNome, String Email, DateTime DataNascimento, String Senha) {
             string id = "u_" + 1;
-            Model.Usuario newObj = new Model.Usuario(id, nome, SobreNome, DataNascimento, Senha);
+            Model.Usuario newObj = new Model.Usuario(id, nome, SobreNome, Email, DataNascimento, Senha);
 
             try {
                 UsuarioDAO.cadastrar(newObj);
@@ -20,11 +20,11 @@ namespace LibApp.Service.Usuario {
             } catch (Exception) {
                 Console.WriteLine("Error ao cadastrar usuario");
             }
-            return null;      
+            return null;
         }
 
-        Model.Usuario IUsuario.Logar(string nome, string Senha) {
-            return null;
+        Model.Usuario IUsuario.Logar(string Email, string Senha) {
+            return UsuarioDAO.buscar(Email, Senha);
         }
     }
 }

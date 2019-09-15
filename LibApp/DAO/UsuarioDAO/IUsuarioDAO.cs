@@ -9,5 +9,7 @@ namespace LibApp.DAO.UsuarioDAO {
     public interface IUsuarioDAO {
 
         void cadastrar(Usuario usuario);
+
+        Model.Usuario buscar(string nome, string senha);
     }
 }

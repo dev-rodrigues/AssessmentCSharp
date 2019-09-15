@@ -22,9 +22,19 @@ namespace LibApp.Service.StartApp {
             criaArquivoPrincipal();
 
             Console.WriteLine("cadastrando...");
-            UsuarioService.Cadastrar("carlos", "santos", new DateTime(1994, 10, 05), "123");
+            UsuarioService.Cadastrar("carlos", "santos", "carlos.hrq.rodrigues.junior@gmail.com", new DateTime(1994, 10, 05), "123");
+            UsuarioService.Cadastrar("paulo", "santos", "paulo.hrq.rodrigues.junior@gmail.com", new DateTime(1994, 10, 05), "321");
             Console.WriteLine("cadastrado");
 
+            Model.Usuario u = UsuarioService.Logar("carlos.hrq.rodrigues.junior@gmail.com", "123");
+
+            if (u == null) {
+                Console.WriteLine("USUARIO NAO LOCALIZADO");
+            } else {
+                Console.WriteLine(u.Nome);
+                Console.WriteLine(u.SobreNome);
+                Console.WriteLine(u.Senha);
+            }
 
             Console.WriteLine("Aperte uma tecla para continuar...");
             Console.ReadKey();

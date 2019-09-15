@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace LibApp.Service {
     interface IUsuario {
 
-        Model.Usuario Cadastrar(String nome, String SobreNome, DateTime DataNascimento, String Senha);
+        Model.Usuario Cadastrar(String nome, String SobreNome, String Email, DateTime DataNascimento, String Senha);
 
-        Model.Usuario Logar(String nome, String Senha);        
+        Model.Usuario Logar(String Email, String Senha);
     }
 }

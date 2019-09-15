@@ -13,6 +13,8 @@ namespace LibApp.Model {
 
         public string SobreNome { get; set; }
 
+        public string Email { get; set; }
+
         public DateTime Nascimento { get; set; }
 
         public String Senha { get; set; }
@@ -21,10 +23,11 @@ namespace LibApp.Model {
 
         }
 
-        public Usuario(String Id, String Nome, String SobreNome, DateTime Nascimento, String Senha) {
+        public Usuario(String Id, String Nome, String SobreNome, String Email, DateTime Nascimento, String Senha) {
             this.Id = Id;
             this.Nome = Nome;
             this.SobreNome = SobreNome;
+            this.Email = Email;
             this.Nascimento = Nascimento;
             this.Senha = Senha;
         }
