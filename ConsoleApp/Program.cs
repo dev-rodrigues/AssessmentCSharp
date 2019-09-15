@@ -28,11 +28,9 @@ namespace ConsoleApp {
                 UsuarioService.Cadastrar(dados);
             }
 
-           
 
+            Utils.Interacao();
 
-
-            
             Console.ReadKey();
         }
     }

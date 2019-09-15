@@ -15,8 +15,7 @@ namespace LibApp.Service.Usuario {
             //BUSCAR ID
             string id = "u_" + UsuarioDAO.getNextId();
 
-            Model.Usuario newObj = new Model.Usuario(id, dadosColetados[0], dadosColetados[1], dadosColetados[2],
-                Convert.ToDateTime(dadosColetados[3]), dadosColetados[4]);
+            Model.Usuario newObj = new Model.Usuario(id, dadosColetados[0], dadosColetados[1], dadosColetados[2], Convert.ToDateTime(dadosColetados[3]), dadosColetados[4]);
 
             try {
                 UsuarioDAO.Register(newObj);
