@@ -6,10 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LibApp.Service {
-    interface IUsuario {
+    public interface IUsuario {
 
-        Model.Usuario Cadastrar(String nome, String SobreNome, String Email, DateTime DataNascimento, String Senha);
+        Model.Usuario Cadastrar(string[] vetor);
 
-        Model.Usuario Logar(String Email, String Senha);
+        Model.Usuario Logar(string[] vetor);
+
+        bool HasRegisteredUser();
     }
 }

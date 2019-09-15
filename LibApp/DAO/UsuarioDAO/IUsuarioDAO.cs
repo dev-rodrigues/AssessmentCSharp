@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 namespace LibApp.DAO.UsuarioDAO {
     public interface IUsuarioDAO {
 
-        void cadastrar(Usuario usuario);
+        void Register(Usuario usuario);
 
-        Model.Usuario buscar(string nome, string senha);
+        Model.Usuario Find(string nome, string senha);
+
+        Boolean HasRegisteredUser();
     }
 }

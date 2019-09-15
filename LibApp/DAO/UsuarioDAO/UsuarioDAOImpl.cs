@@ -13,14 +13,16 @@ namespace LibApp.DAO.UsuarioDAO {
         const string FILE_DB_NAME = "db_file_name_carlos_henrique.txt";
 
 
-        void IUsuarioDAO.cadastrar(Usuario usuario) {
+        void IUsuarioDAO.Register(Usuario usuario) {
             string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
 
             using (StreamWriter writer = new StreamWriter(path, true)) {
                 writer.WriteLine(ReturnLineObj(usuario));
+                Console.WriteLine("Usuario cadastrado com sucesso!");
             }
         }
-        Usuario IUsuarioDAO.buscar(string Email, string Senha) {
+
+        Usuario IUsuarioDAO.Find(string Email, string Senha) {
             string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
             System.IO.StreamReader file = new System.IO.StreamReader(path);
 
@@ -34,7 +36,19 @@ namespace LibApp.DAO.UsuarioDAO {
                     break;
                 }
             }
+            file.Close();
             return obj;
+        }
+
+        bool IUsuarioDAO.HasRegisteredUser() {
+            string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
+            System.IO.StreamReader file = new System.IO.StreamReader(path);
+            List<Usuario> Usuarios = getUsuarios(file);
+            file.Close();
+            if (Usuarios.Count() == 0) {
+                return false;
+            }
+            return true;
         }
 
         private List<Usuario> getUsuarios(System.IO.StreamReader arquivo) {
@@ -53,6 +67,7 @@ namespace LibApp.DAO.UsuarioDAO {
                 }
                 counter++;
             }
+            arquivo.Close();
             return Usuarios;
         }
 
@@ -63,5 +78,6 @@ namespace LibApp.DAO.UsuarioDAO {
         private string ReturnPath(String DirectoryName, String FileName) {
             return System.IO.Path.Combine(DirectoryName, FileName);
         }
+
     }
 }
