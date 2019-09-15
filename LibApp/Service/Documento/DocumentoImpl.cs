@@ -47,7 +47,7 @@ namespace LibApp.Service.Documento {
             String combined = ReturnPath(DirectoryName, FileName);
 
             using (var fluxoArquivo = System.IO.File.Create(combined)) {
-                for (byte i = 0; i < 1; i++) {
+                for (byte i = 0; i < 0; i++) {
                     fluxoArquivo.WriteByte(i);
                 }
                 Console.WriteLine("Arquivo Principal Criado");

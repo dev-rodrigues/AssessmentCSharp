@@ -1,4 +1,5 @@
 ﻿using LibApp.Service.Documento;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,25 @@ namespace LibApp.Service.StartApp {
     public class StartAppImpl : IStartApp {
 
         private static IDocumento DocumentoService = ServiceLab.GetInstanceOf<DocumentoImpl>();
+        private static IUsuario UsuarioService = ServiceLab.GetInstanceOf<Usuario.UsuarioImpl>();
+
         const string DIRECTORY_NAME = @"C:\assessment_carlos_henrique";
         const string FILE_DB_NAME = "db_file_name_carlos_henrique.txt";
+
+        public static object UsuarioImpl { get; private set; }
 
         void IStartApp.start() {
             CriaDiretorioPrincipal();
             criaArquivoPrincipal();
+
+            Console.WriteLine("cadastrando...");
+            UsuarioService.Cadastrar("carlos", "santos", new DateTime(1994, 10, 05), "123");
+            Console.WriteLine("cadastrado");
+
+
+            Console.WriteLine("Aperte uma tecla para continuar...");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         // deve chamar o serviço e criar o diretorio;
