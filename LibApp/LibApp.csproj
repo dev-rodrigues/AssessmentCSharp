@@ -41,9 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\Amgio\AmigoDAOImpl.cs" />
+    <Compile Include="DAO\Amgio\IAmigoDAO.cs" />
     <Compile Include="DAO\UsuarioDAO\IUsuarioDAO.cs" />
     <Compile Include="DAO\UsuarioDAO\UsuarioDAOImpl.cs" />
     <Compile Include="Helper\Utils.cs" />
+    <Compile Include="Model\Amigo.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLab.cs" />

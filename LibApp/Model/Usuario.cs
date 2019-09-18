@@ -19,7 +19,7 @@ namespace LibApp.Model {
 
         public String Senha { get; set; }
 
-        public List<Amigo> amigos = new List<Amigo>();
+       public List<Amigo> Amigos = new List<Amigo>();
 
         public Usuario() {
 
@@ -32,6 +32,16 @@ namespace LibApp.Model {
             this.Email = Email;
             this.Nascimento = Nascimento;
             this.Senha = Senha;
+        }
+
+        public Usuario(String Id, String Nome, String SobreNome, String Email, DateTime Nascimento, String Senha, List<Amigo> Amigos) {
+            this.Id = Id;
+            this.Nome = Nome;
+            this.SobreNome = SobreNome;
+            this.Email = Email;
+            this.Nascimento = Nascimento;
+            this.Senha = Senha;
+            this.Amigos = Amigos;
         }
     }
 }

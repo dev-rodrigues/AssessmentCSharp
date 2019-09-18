@@ -84,7 +84,7 @@ namespace LibApp.Helper {
                 value = SolicitaAcao();
 
                 if (OpcaoSelecionadaLogadoValido(value)) {
-                    ExecutaAcaoDoUsuarioLogado(value);
+                    ExecutaAcaoDoUsuarioLogado(value, autenticado);
                 } else {
                     Console.WriteLine("Opcao invalida");
                     value = int.MaxValue;
@@ -134,8 +134,26 @@ namespace LibApp.Helper {
             return opcao >= 1 && opcao <= 4;
         }
 
-        private static void ExecutaAcaoDoUsuarioLogado(int opcaoSelecionada) {
+        private static void ExecutaAcaoDoUsuarioLogado(int opcaoSelecionada, Usuario autenticado) {
             Console.WriteLine(opcaoSelecionada);
+
+            switch (opcaoSelecionada) {
+                
+                //consultar amigo
+                case 1:
+
+                    break;
+                //cadastrar amigo
+                case 2:
+
+                    break;
+
+                default:
+                    Console.WriteLine("ESTOU PERDIDO, HELP!");
+                    break;
+            }
+
+
             Console.ReadKey();
         }
 
@@ -144,7 +162,6 @@ namespace LibApp.Helper {
 
                 // logar
                 case 1:
-                    Console.WriteLine("selecionei 1");
                     Usuario u = ServiceUsuario.Logar(SolicitarDadosLogar());
 
                     if (Autenticado(u)) {

@@ -9,6 +9,8 @@ namespace LibApp.Service {
     public interface IUsuario {
 
         Model.Usuario Cadastrar(string[] vetor);
+        
+        Model.Amigo CadastrarAmigo(string[] vetor, Model.Usuario usuario);
 
         Model.Usuario Logar(string[] vetor);
 
