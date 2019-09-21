@@ -27,5 +27,12 @@ namespace LibApp.Model {
             this.Nascimento = Nascimento;
             this.IdUsuario = IdUsuario;
         }
+
+        public int TotalDeDiasProAniversario() {
+            int day = (Int32)this.Nascimento.Day;
+            int month = (Int32)this.Nascimento.Month;
+            DateTime newDate = new DateTime(DateTime.Today.Year, month, day);
+            return (Int32)newDate.Subtract(DateTime.Today).TotalDays;
+        }
     }
 }
