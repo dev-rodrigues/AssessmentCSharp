@@ -24,62 +24,84 @@ namespace LibApp.DAO.UsuarioDAO {
 
         // retorna o proximo Id valido;
         public int getNextId() {
-            return getUsuarios(getFile()).Count() + 1;
+            return getUsuarios().Count() + 1;
         }
 
         // busca um usuario
         Usuario IUsuarioDAO.Find(string Email, string Senha) {
-            string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
-            System.IO.StreamReader file = new System.IO.StreamReader(path);
+
+            var file = getFile();
 
             List<Usuario> UsuariosCadastrados = new List<Usuario>();
-            UsuariosCadastrados.AddRange(getUsuarios(file));
+            UsuariosCadastrados.AddRange(getUsuarios());
 
-            Usuario obj = null;
+            Usuario usuario = null;
             foreach (Usuario u in UsuariosCadastrados) {
                 if (u.Email == Email && u.Senha == Senha) {
-                    obj = u;
+                    usuario = u;
                     break;
                 }
             }
+
+            usuario.Amigos.AddRange(getAmigos(usuario));
             file.Close();
-            return obj;
+            return usuario;
         }
 
         // verifica se existe algum usuario cadastrado
         //PODE DAR ERRO - TESTAR
         bool IUsuarioDAO.HasRegisteredUser() {
-            List<Usuario> Usuarios = getUsuarios(getFile());
+            List<Usuario> Usuarios = getUsuarios();
             if (Usuarios.Count() == 0) {
                 return false;
             }
             return true;
         }
 
+        // deve retornar Stream IO do arquivo principal
         private System.IO.StreamReader getFile() {
             string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
             System.IO.StreamReader file = new System.IO.StreamReader(path);
             return file;
         }
 
+        // deve retornar os amigos do usuario logado
+        private List<Amigo> getAmigos(Usuario usuario) {
+            string line;
+            List<Amigo> amigosEncontrados = new List<Amigo>();            
+            var file = getFile();
+    
+            while ((line = file.ReadLine()) != null) {
+                string[] fracao = line.Split(',');
+
+                for(int i = 0; i<fracao.Length; i++) {                    
+                    if (i == 0 && fracao[i].Contains("a_") && fracao[4].Equals(usuario.Id)) {
+                        Amigo localizado = new Amigo(fracao[0], fracao[1], fracao[2], Convert.ToDateTime(fracao[3]), fracao[4]);
+                        amigosEncontrados.Add(localizado);
+                        break;
+                    }
+                }
+            }
+            file.Close();
+            return amigosEncontrados;
+        }
+
         // retorna uma lista de usuarios
-        private List<Usuario> getUsuarios(System.IO.StreamReader arquivo) {
+        private List<Usuario> getUsuarios() {
             string line;
             List<Usuario> Usuarios = new List<Usuario>();
+            var arquivo = getFile();
 
             while ((line = arquivo.ReadLine()) != null) {
                 String[] fracoes = line.Split(',');
 
                 for (int i = 0; i < fracoes.Length; i++) {
-                    if (fracoes[i].Contains("u_")) {
+                    if (i == 0 && fracoes[i].Contains("u_")) {
                         Usuario u = new Usuario(fracoes[0], fracoes[1], fracoes[2], fracoes[3], Convert.ToDateTime(fracoes[4]), fracoes[5].ToString().Replace(";", ""));
                         Usuarios.Add(u);
                     }
                 }
             }
-
-            // buscar amigos dos usuarios
-
             arquivo.Close();
             return Usuarios;
         }

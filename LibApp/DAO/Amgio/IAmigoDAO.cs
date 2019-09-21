@@ -10,7 +10,7 @@ namespace LibApp.DAO.Amgio {
 
         int getNextId();
 
-        void CadastrarAmigo(Amigo amigo);
+        void CadastrarAmigo(Amigo amigo, Usuario usuarioLogado);
 
     }
 }

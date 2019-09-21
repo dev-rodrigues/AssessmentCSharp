@@ -27,6 +27,23 @@ namespace LibApp.Helper {
             return vet;
         }
 
+        //TODO VALIDAR DADOS
+        public static string[] SolicitarDadosCadastrarAmigo() {
+            string[] vet = new string[3];
+            string primeiroNome, sobrenome, data;
+
+            Console.WriteLine("Digite o primeiro nome do seu amigo");
+            primeiroNome = Console.ReadLine();
+
+            Console.WriteLine("Digite o sobre nome do seu amigo");
+            sobrenome = Console.ReadLine();
+
+            Console.WriteLine("Digite a data de nascimento do seu amigo no formato YYYY-MM-DD");
+            data = Console.ReadLine();
+            vet[0] = primeiroNome; vet[1] = sobrenome; vet[2] = data;
+            return vet;
+        }
+
         public static string[] SolicitarDadosCadastrar() {
             string[] vet = new string[5];
             Console.Clear();
@@ -44,7 +61,7 @@ namespace LibApp.Helper {
             Console.WriteLine("Escreva seu email");
             email = Console.ReadLine();
 
-            Console.WriteLine("Escreva a data de nascimento no formato YYYY/MM/DD");
+            Console.WriteLine("Escreva a data de nascimento no formato YYYY-MM-DD");
             data = Console.ReadLine();
 
             Console.WriteLine("Escreva uma senha");
@@ -87,8 +104,9 @@ namespace LibApp.Helper {
                     ExecutaAcaoDoUsuarioLogado(value, autenticado);
                 } else {
                     Console.WriteLine("Opcao invalida");
-                    value = int.MaxValue;
                 }
+                
+                value = int.MaxValue;
             }
 
 
@@ -105,6 +123,7 @@ namespace LibApp.Helper {
                 } catch (Exception e) {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Valor digitado inválido");
+                    Console.WriteLine(e.Message);
                     Console.ResetColor();
                     value = int.MaxValue;
                 }
@@ -143,9 +162,13 @@ namespace LibApp.Helper {
                 case 1:
 
                     break;
+
                 //cadastrar amigo
                 case 2:
-
+                    Amigo a = ServiceUsuario.CadastrarAmigo(SolicitarDadosCadastrarAmigo(), autenticado);
+                    if (a == null) {
+                        Console.WriteLine("deu ruim");
+                    }
                     break;
 
                 default:
@@ -171,7 +194,6 @@ namespace LibApp.Helper {
                         Console.WriteLine("Aperte uma tecla para retornar");
                         Console.ReadLine();
                     }
-
                     break;
 
                 // registrar novo usuario

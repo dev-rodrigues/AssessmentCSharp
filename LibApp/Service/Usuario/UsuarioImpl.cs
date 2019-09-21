@@ -36,7 +36,8 @@ namespace LibApp.Service.Usuario {
             Model.Amigo newAmigo = new Amigo(id, dadosColetados[0], dadosColetados[1], Convert.ToDateTime(dadosColetados[2]), usuario.Id);
 
             try {
-                AmigoDAO.CadastrarAmigo(newAmigo);                
+                AmigoDAO.CadastrarAmigo(newAmigo, usuario);
+                return newAmigo;
             } catch(Exception e) {
                 Console.WriteLine("Error ao cadastrar usuario");
                 Console.WriteLine(e.Message);
