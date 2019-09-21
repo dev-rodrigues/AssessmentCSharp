@@ -11,7 +11,7 @@ namespace Repository.UsuarioRepo {
 
         Object CadastrarAmigo(string[] vetor, Object UsuarioLogado);
 
-        List(<T>) BuscarAmigo(string PalavraChave, Object UsuarioLogado);
+        List<Object> BuscarAmigo(string PalavraChave, Object UsuarioLogado);
 
         Object Logar(string[] vetor);
 

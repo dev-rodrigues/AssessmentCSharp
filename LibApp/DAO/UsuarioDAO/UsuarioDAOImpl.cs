@@ -67,9 +67,9 @@ namespace LibApp.DAO.UsuarioDAO {
         }
 
         // Deve retornar os amigos do usuario logado
-        private List<Amigo> getAmigos(Usuario usuario) {
+        private List<Model.Amigo> getAmigos(Usuario usuario) {
             string line;
-            List<Amigo> amigosEncontrados = new List<Amigo>();            
+            List<Model.Amigo> amigosEncontrados = new List<Model.Amigo>();            
             var file = getFile();
     
             while ((line = file.ReadLine()) != null) {
@@ -77,7 +77,7 @@ namespace LibApp.DAO.UsuarioDAO {
 
                 for(int i = 0; i<fracao.Length; i++) {                    
                     if (i == 0 && fracao[i].Contains("a_") && fracao[4].Equals(usuario.Id)) {
-                        Amigo localizado = new Amigo(fracao[0], fracao[1], fracao[2], Convert.ToDateTime(fracao[3]), fracao[4]);
+                        Model.Amigo localizado = new Model.Amigo(fracao[0], fracao[1], fracao[2], Convert.ToDateTime(fracao[3]), fracao[4]);
                         amigosEncontrados.Add(localizado);
                         break;
                     }

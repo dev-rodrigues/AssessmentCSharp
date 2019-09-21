@@ -1,4 +1,5 @@
 ﻿using LibApp.Model;
+using LibApp.DAO.Amigo;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +18,7 @@ namespace LibApp.DAO.Amgio {
             return getAmigos().Count + 1;
         }
 
-        public void CadastrarAmigo(Amigo amigo, Usuario usuarioLogado) {
+        public void CadastrarAmigo(Model.Amigo amigo, Usuario usuarioLogado) {
             string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
 
             using (StreamWriter writer = new StreamWriter(path, true)) {
@@ -28,16 +29,16 @@ namespace LibApp.DAO.Amgio {
         }
 
         // Deve retornar uma lista de amigos
-        public List<Amigo> BuscarAmigos(string PalavraChave, Usuario UsuarioLogado) {
+        public List<Model.Amigo> BuscarAmigos(string PalavraChave, Usuario UsuarioLogado) {
             var Amigos = getAmigosAux(PalavraChave, UsuarioLogado);
             return Amigos;
         }
          
         // Deve retornar uma lista de amigos
-        private List<Amigo> getAmigos() {
+        private List<Model.Amigo> getAmigos() {
             string line;
             var file = getFile();
-            var Amigos = new List<Amigo>();
+            var Amigos = new List<Model.Amigo>();
 
             while((line = file.ReadLine()) != null) {
                 String[] fracoes = line.Split(',');
@@ -48,10 +49,10 @@ namespace LibApp.DAO.Amgio {
         }
 
         // Deve retornar uma lista de amigos localizados em funcao da lista de amigos do usuario logado
-        private List<Amigo> getAmigosAux(string PalavraChave, Usuario UsuarioLogado) {
-            var localizados = new List<Amigo>();
+        private List<Model.Amigo> getAmigosAux(string PalavraChave, Usuario UsuarioLogado) {
+            var localizados = new List<Model.Amigo>();
 
-            foreach (Amigo a in UsuarioLogado.Amigos) {
+            foreach (Model.Amigo a in UsuarioLogado.Amigos) {
                 if ( a.Nome.Contains(PalavraChave) || a.SobreNome.Contains(PalavraChave)) {
                     localizados.Add(a);
                 }
@@ -60,11 +61,11 @@ namespace LibApp.DAO.Amgio {
         }
 
         // Deve retornar uma lista de amigos
-        private List<Amigo> getAmigosAux(String[] fracoes) {
-            List<Amigo> Amigos = new List<Amigo>();
+        private List<Model.Amigo> getAmigosAux(String[] fracoes) {
+            List<Model.Amigo> Amigos = new List<Model.Amigo>();
             for (int i = 0; i < fracoes.Length; i++) {
                 if (fracoes[i].Contains("a_")) {
-                    Amigo a = new Amigo(fracoes[0], fracoes[1], fracoes[2], Convert.ToDateTime(fracoes[3]), fracoes[4]);
+                    Model.Amigo  a = new Model.Amigo(fracoes[0], fracoes[1], fracoes[2], Convert.ToDateTime(fracoes[3]), fracoes[4]);
                     Amigos.Add(a);
                 }
             }
@@ -83,7 +84,7 @@ namespace LibApp.DAO.Amgio {
         }
 
         // Deve retornar a string que será salva no arquivo
-        private string ReturnLineObj(Amigo amigo) {
+        private string ReturnLineObj(Model.Amigo amigo) {
             return $"{amigo.Id},{amigo.Nome},{amigo.SobreNome},{amigo.Nascimento},{amigo.IdUsuario}";
         }
     }

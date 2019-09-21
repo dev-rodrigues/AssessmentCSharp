@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibApp.DAO.Amgio {
+namespace LibApp.DAO.Amigo {
     public interface IAmigo {
 
         int getNextId();
 
-        void CadastrarAmigo(Amigo amigo, Usuario usuarioLogado);
+        void CadastrarAmigo(Model.Amigo amigo, Usuario usuarioLogado);
 
-        List<Amigo> BuscarAmigos(string PalavraChave, Usuario IdUsuario);
+        List<Model.Amigo> BuscarAmigos(string PalavraChave, Usuario IdUsuario);
 
     }
 }

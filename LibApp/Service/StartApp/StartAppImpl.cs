@@ -10,7 +10,7 @@ namespace LibApp.Service.StartApp {
     public class StartAppImpl : IStartApp {
 
         private static IDocumento DocumentoService = ServiceLab.GetInstanceOf<DocumentoImpl>();
-        private static IUsuario UsuarioService = ServiceLab.GetInstanceOf<Usuario.UsuarioImpl>();
+        //private static IUsuario UsuarioService = ServiceLab.GetInstanceOf<Usuario.UsuarioImpl>();
 
         const string DIRECTORY_NAME = @"C:\assessment_carlos_henrique";
         const string FILE_DB_NAME = "db_file_name_carlos_henrique.txt";

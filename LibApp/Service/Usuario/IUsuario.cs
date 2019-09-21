@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LibApp.Service {
-    public interface IUsuario_ {
+    public interface IUsuario {
 
         Model.Usuario CadastrarUsuario(string[] vetor);
         
