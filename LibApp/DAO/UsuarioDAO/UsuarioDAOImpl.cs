@@ -22,14 +22,13 @@ namespace LibApp.DAO.UsuarioDAO {
             }
         }
 
-        // retorna o proximo Id valido;
+        // Retorna o proximo Id valido;
         public int getNextId() {
             return getUsuarios().Count() + 1;
         }
 
-        // busca um usuario
+        // Busca um usuario
         Usuario IUsuarioDAO.Find(string Email, string Senha) {
-
             var file = getFile();
 
             List<Usuario> UsuariosCadastrados = new List<Usuario>();
@@ -48,8 +47,7 @@ namespace LibApp.DAO.UsuarioDAO {
             return usuario;
         }
 
-        // verifica se existe algum usuario cadastrado
-        //PODE DAR ERRO - TESTAR
+        // Verifica se existe algum usuario cadastrado
         bool IUsuarioDAO.HasRegisteredUser() {
             List<Usuario> Usuarios = getUsuarios();
             if (Usuarios.Count() == 0) {
@@ -58,14 +56,14 @@ namespace LibApp.DAO.UsuarioDAO {
             return true;
         }
 
-        // deve retornar Stream IO do arquivo principal
+        // Deve retornar Stream IO do arquivo principal
         private System.IO.StreamReader getFile() {
             string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
             System.IO.StreamReader file = new System.IO.StreamReader(path);
             return file;
         }
 
-        // deve retornar os amigos do usuario logado
+        // Deve retornar os amigos do usuario logado
         private List<Amigo> getAmigos(Usuario usuario) {
             string line;
             List<Amigo> amigosEncontrados = new List<Amigo>();            
@@ -86,7 +84,7 @@ namespace LibApp.DAO.UsuarioDAO {
             return amigosEncontrados;
         }
 
-        // retorna uma lista de usuarios
+        // Retorna uma lista de usuarios
         private List<Usuario> getUsuarios() {
             string line;
             List<Usuario> Usuarios = new List<Usuario>();
@@ -106,7 +104,7 @@ namespace LibApp.DAO.UsuarioDAO {
             return Usuarios;
         }
 
-        // retorna uma string com os dados do obj para serem gravados
+        // Retorna uma string com os dados do obj para serem gravados
         private string ReturnLineObj(Usuario usuario) {
             return $"{usuario.Id},{usuario.Nome},{usuario.SobreNome},{usuario.Email},{usuario.Nascimento.ToString()},{usuario.Senha}";
         }

@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 namespace LibApp.Service {
     public interface IUsuario {
 
-        Model.Usuario Cadastrar(string[] vetor);
+        Model.Usuario CadastrarUsuario(string[] vetor);
         
-        Model.Amigo CadastrarAmigo(string[] vetor, Model.Usuario usuario);
+        Model.Amigo CadastrarAmigo(string[] vetor, Model.Usuario UsuarioLogado);
+
+        Model.Amigo BuscarAmigo(string PalavraChave, Model.Usuario UsuarioLogado);
 
         Model.Usuario Logar(string[] vetor);
 

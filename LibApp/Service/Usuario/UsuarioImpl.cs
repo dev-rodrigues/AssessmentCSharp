@@ -11,10 +11,10 @@ namespace LibApp.Service.Usuario {
     public class UsuarioImpl : IUsuario {
 
         private IUsuarioDAO UsuarioDAO = ServiceLab.GetInstanceOf<UsuarioDAOImpl>();
+
         private IAmigo AmigoDAO = ServiceLab.GetInstanceOf<AmigoDAOImpl>();
 
-
-        public Model.Usuario Cadastrar(string[] dadosColetados) {
+        public Model.Usuario CadastrarUsuario(string[] dadosColetados) {
             //BUSCAR ID válido
             string id = "u_" + UsuarioDAO.getNextId();
 
@@ -30,19 +30,26 @@ namespace LibApp.Service.Usuario {
             return null;
         }
 
-        public Amigo CadastrarAmigo(string[] dadosColetados, Model.Usuario usuario) {
-            //BUSCAR ID válido       
+        // Deve cadastrar um amigo do usuario logado
+        public Amigo CadastrarAmigo(string[] dadosColetados, Model.Usuario UsuarioLogado) {
             string id = "a_" + AmigoDAO.getNextId();
-            Model.Amigo newAmigo = new Amigo(id, dadosColetados[0], dadosColetados[1], Convert.ToDateTime(dadosColetados[2]), usuario.Id);
+            Model.Amigo newAmigo = new Amigo(id, dadosColetados[0], dadosColetados[1], Convert.ToDateTime(dadosColetados[2]), UsuarioLogado.Id);
 
             try {
-                AmigoDAO.CadastrarAmigo(newAmigo, usuario);
+                AmigoDAO.CadastrarAmigo(newAmigo, UsuarioLogado);
                 return newAmigo;
             } catch(Exception e) {
                 Console.WriteLine("Error ao cadastrar usuario");
                 Console.WriteLine(e.Message);
             }
             return null;   
+        }
+
+        // Deve retornar uma lista de amigos em função do usuario logado e palavra chave informada
+        public Amigo BuscarAmigo(string PalavraChave, Model.Usuario UsuarioLogado) {
+            
+
+            return null;
         }
 
         bool IUsuario.HasRegisteredUser() {
