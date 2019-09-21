@@ -42,7 +42,10 @@ namespace LibApp.DAO.UsuarioDAO {
                 }
             }
 
-            usuario.Amigos.AddRange(getAmigos(usuario));
+            if (usuario != null) {
+                usuario.Amigos.AddRange(getAmigos(usuario));
+            }
+            
             file.Close();
             return usuario;
         }
@@ -87,7 +90,7 @@ namespace LibApp.DAO.UsuarioDAO {
         // Retorna uma lista de usuarios
         private List<Usuario> getUsuarios() {
             string line;
-            List<Usuario> Usuarios = new List<Usuario>();
+            var Usuarios = new List<Usuario>();
             var arquivo = getFile();
 
             while ((line = arquivo.ReadLine()) != null) {
@@ -113,6 +116,5 @@ namespace LibApp.DAO.UsuarioDAO {
         private string ReturnPath(String DirectoryName, String FileName) {
             return System.IO.Path.Combine(DirectoryName, FileName);
         }
-
     }
 }

@@ -182,8 +182,6 @@ namespace LibApp.Helper {
                     Console.WriteLine("ESTOU PERDIDO, HELP!");
                     break;
             }
-
-
             Console.ReadKey();
         }
 

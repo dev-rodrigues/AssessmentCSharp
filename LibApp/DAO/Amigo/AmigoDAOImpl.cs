@@ -27,11 +27,13 @@ namespace LibApp.DAO.Amgio {
             }
         }
 
+        // Deve retornar uma lista de amigos
         public List<Amigo> BuscarAmigos(string PalavraChave, Usuario UsuarioLogado) {
             var Amigos = getAmigosAux(PalavraChave, UsuarioLogado);
             return Amigos;
         }
-          
+         
+        // Deve retornar uma lista de amigos
         private List<Amigo> getAmigos() {
             string line;
             var file = getFile();
@@ -57,6 +59,7 @@ namespace LibApp.DAO.Amgio {
             return localizados;
         }
 
+        // Deve retornar uma lista de amigos
         private List<Amigo> getAmigosAux(String[] fracoes) {
             List<Amigo> Amigos = new List<Amigo>();
             for (int i = 0; i < fracoes.Length; i++) {
