@@ -17,7 +17,6 @@ namespace LibApp.DAO.Amgio {
             return getAmigos().Count + 1;
         }
 
-
         public void CadastrarAmigo(Amigo amigo, Usuario usuarioLogado) {
             string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
 
@@ -28,12 +27,15 @@ namespace LibApp.DAO.Amgio {
             }
         }
 
+        public List<Amigo> BuscarAmigos(string PalavraChave, Usuario UsuarioLogado) {
+            var Amigos = getAmigosAux(PalavraChave, UsuarioLogado);
+            return Amigos;
+        }
+          
         private List<Amigo> getAmigos() {
             string line;
-
             var file = getFile();
-
-            List<Amigo> Amigos = new List<Amigo>();
+            var Amigos = new List<Amigo>();
 
             while((line = file.ReadLine()) != null) {
                 String[] fracoes = line.Split(',');
@@ -41,6 +43,18 @@ namespace LibApp.DAO.Amgio {
             }
             file.Close();
             return Amigos;
+        }
+
+        // Deve retornar uma lista de amigos localizados em funcao da lista de amigos do usuario logado
+        private List<Amigo> getAmigosAux(string PalavraChave, Usuario UsuarioLogado) {
+            var localizados = new List<Amigo>();
+
+            foreach (Amigo a in UsuarioLogado.Amigos) {
+                if ( a.Nome.Contains(PalavraChave) || a.SobreNome.Contains(PalavraChave)) {
+                    localizados.Add(a);
+                }
+            }
+            return localizados;
         }
 
         private List<Amigo> getAmigosAux(String[] fracoes) {
@@ -54,10 +68,10 @@ namespace LibApp.DAO.Amgio {
             return Amigos;
         }
 
+        // Deve retornar uma instancia do file io
         private System.IO.StreamReader getFile() {
             string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
-            System.IO.StreamReader file = new System.IO.StreamReader(path);
-            
+            System.IO.StreamReader file = new System.IO.StreamReader(path);            
             return file;
         }
 
@@ -65,6 +79,7 @@ namespace LibApp.DAO.Amgio {
             return System.IO.Path.Combine(DirectoryName, FileName);
         }
 
+        // Deve retornar a string que será salva no arquivo
         private string ReturnLineObj(Amigo amigo) {
             return $"{amigo.Id},{amigo.Nome},{amigo.SobreNome},{amigo.Nascimento},{amigo.IdUsuario}";
         }

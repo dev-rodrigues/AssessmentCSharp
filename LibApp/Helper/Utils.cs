@@ -44,6 +44,13 @@ namespace LibApp.Helper {
             return vet;
         }
 
+        public static string SolicitarPalavraChave() {
+            string palavraChave;
+            Console.WriteLine("Digite o nome ou sobre nome do amigo");
+            palavraChave = Console.ReadLine();
+            return palavraChave;
+        }
+
         public static string[] SolicitarDadosCadastrar() {
             string[] vet = new string[5];
             Console.Clear();
@@ -104,12 +111,9 @@ namespace LibApp.Helper {
                     ExecutaAcaoDoUsuarioLogado(value, autenticado);
                 } else {
                     Console.WriteLine("Opcao invalida");
-                }
-                
+                }                
                 value = int.MaxValue;
             }
-
-
             Console.ReadLine();
         }
 
@@ -160,7 +164,10 @@ namespace LibApp.Helper {
                 
                 //consultar amigo
                 case 1:
-
+                    List<Amigo> amgios = ServiceUsuario.BuscarAmigo(SolicitarPalavraChave(), autenticado);
+                    EscreveDados(amgios);
+                    var selecao = EscolherAmigo();
+                    Console.WriteLine("amigo selecionado" + selecao);
                     break;
 
                 //cadastrar amigo
@@ -178,6 +185,23 @@ namespace LibApp.Helper {
 
 
             Console.ReadKey();
+        }
+
+        private static void EscreveDados(List<Amigo> amigos) {
+            int i = 0;
+            Console.Clear();
+            Console.WriteLine("AMIGOS LOCALIZADO");
+            foreach(Amigo a in amigos) {
+                Console.WriteLine($"{i} - {a.Nome} {a.SobreNome}");
+                i++;
+            }
+        }
+
+        private static int EscolherAmigo() {
+            int selecao;
+            Console.WriteLine("Escolha um amigo");
+            selecao = Int32.Parse(Console.ReadLine());
+            return selecao;
         }
 
         private static void ExecutaSelecao(int opcaoSelecionada) {
@@ -198,7 +222,7 @@ namespace LibApp.Helper {
 
                 // registrar novo usuario
                 case 2:
-                    ServiceUsuario.Cadastrar(SolicitarDadosCadastrar());
+                    ServiceUsuario.CadastrarUsuario(SolicitarDadosCadastrar());
                     break;
 
                 // sair

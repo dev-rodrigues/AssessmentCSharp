@@ -12,5 +12,7 @@ namespace LibApp.DAO.Amgio {
 
         void CadastrarAmigo(Amigo amigo, Usuario usuarioLogado);
 
+        List<Amigo> BuscarAmigos(string PalavraChave, Usuario IdUsuario);
+
     }
 }

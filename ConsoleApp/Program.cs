@@ -25,7 +25,7 @@ namespace ConsoleApp {
 
             if (!UsuarioService.HasRegisteredUser()) {
                 string[] dados = Utils.SolicitarDadosCadastrar();
-                UsuarioService.Cadastrar(dados);
+                UsuarioService.CadastrarUsuario(dados);
             }
 
 

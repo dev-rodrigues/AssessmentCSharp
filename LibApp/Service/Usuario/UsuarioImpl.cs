@@ -46,10 +46,8 @@ namespace LibApp.Service.Usuario {
         }
 
         // Deve retornar uma lista de amigos em função do usuario logado e palavra chave informada
-        public Amigo BuscarAmigo(string PalavraChave, Model.Usuario UsuarioLogado) {
-            
-
-            return null;
+        public List<Amigo> BuscarAmigo(string PalavraChave, Model.Usuario UsuarioLogado) {
+            return AmigoDAO.BuscarAmigos(PalavraChave, UsuarioLogado);
         }
 
         bool IUsuario.HasRegisteredUser() {

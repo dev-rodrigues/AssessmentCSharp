@@ -12,7 +12,7 @@ namespace LibApp.Service {
         
         Model.Amigo CadastrarAmigo(string[] vetor, Model.Usuario UsuarioLogado);
 
-        Model.Amigo BuscarAmigo(string PalavraChave, Model.Usuario UsuarioLogado);
+        List<Model.Amigo> BuscarAmigo(string PalavraChave, Model.Usuario UsuarioLogado);
 
         Model.Usuario Logar(string[] vetor);
 
