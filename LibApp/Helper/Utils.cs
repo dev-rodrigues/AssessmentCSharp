@@ -93,11 +93,12 @@ namespace LibApp.Helper {
 
         private static void EscreveMenuAutenticado() {
             Console.Clear();
-            Console.WriteLine("SELECIONE UMA OPÇÃO");
-            Console.WriteLine("1 - CONSULTAR AMIGO");
-            Console.WriteLine("2 - CADASTRAR AMIGO");
-            Console.WriteLine("3 - LISTAR AMIGOS");
-            Console.WriteLine("4 - EXCLUIR AMIGO");
+            Console.WriteLine(" SELECIONE UMA OPÇÃO  ");
+            Console.WriteLine(" 1 - CONSULTAR AMIGO  ");
+            Console.WriteLine(" 2 - CADASTRAR AMIGO  ");
+            Console.WriteLine(" 3 - LISTAR AMIGOS    ");
+            Console.WriteLine(" 4 - EXCLUIR AMIGO    ");
+            Console.WriteLine(" 5 - RETORNAR         ");
         }
 
         private static void SolicitaAcaoAutenticado(Usuario autenticado) {
@@ -106,6 +107,9 @@ namespace LibApp.Helper {
             while (value == int.MaxValue) {
                 EscreveMenuAutenticado();
                 value = SolicitaAcao();
+                if (value == 5) {
+                    break;
+                }
 
                 if (OpcaoSelecionadaLogadoValido(value)) {
                     ExecutaAcaoDoUsuarioLogado(value, autenticado);
