@@ -56,13 +56,6 @@
     <Compile Include="Service\StartApp\IStartApp.cs" />
     <Compile Include="Service\StartApp\StartAppImpl.cs" />
     <Compile Include="Service\Usuario\UsuarioImpl.cs" />
-    <Compile Include="Service\Usuario\UsuarioRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Repositorio\Repositorio.csproj">
-      <Project>{1a768f5a-4ca7-4805-806b-8418b4cc6b00}</Project>
-      <Name>Repositorio</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
