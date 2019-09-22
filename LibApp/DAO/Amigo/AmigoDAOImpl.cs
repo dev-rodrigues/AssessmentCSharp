@@ -24,7 +24,6 @@ namespace LibApp.DAO.Amgio {
             using (StreamWriter writer = new StreamWriter(path, true)) {
                 writer.WriteLine(ReturnLineObj(amigo));
                 usuarioLogado.Amigos.Add(amigo);
-                Console.WriteLine("Amigo cadastrado");
             }
         }
 
@@ -45,7 +44,10 @@ namespace LibApp.DAO.Amgio {
             return false;
         }
 
-        public bool EditarAmigo(Usuario usuario, Model.Amigo NovoAmigo) {
+        public bool EditarAmigo(Usuario UsuarioLogado, Model.Amigo NovoAmigo) {
+            if (EditaAmigoMemoria(UsuarioLogado, NovoAmigo) && EditarAmigoDocumento(UsuarioLogado, NovoAmigo)) {
+                return true;
+            }
             return false;
         }
 
@@ -93,7 +95,7 @@ namespace LibApp.DAO.Amgio {
             }
             return false;
         }
-        
+
         private bool EditarAmigoDocumento(Usuario UsuarioLogado, Model.Amigo AmigoEditado) {
             if (ExcluirAmigoDocumento(UsuarioLogado, AmigoEditado.Id)) {
                 CadastrarAmigo(AmigoEditado, UsuarioLogado);

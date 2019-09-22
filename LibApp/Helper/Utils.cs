@@ -196,6 +196,7 @@ namespace LibApp.Helper {
                     if (a == null) {
                         Console.WriteLine("ERRO AO EXCLUIR O AMIGO");
                     }
+                    Console.WriteLine("Amigo cadastrado");
                     break;
 
                 //  listar todos os amigos
@@ -211,7 +212,13 @@ namespace LibApp.Helper {
                     var selecionado = EscolherAmigo();
                     Amigo old = Amigos.ElementAt(selecionado);
                     Console.WriteLine("Amigo selecionado: " + old.Nome);
-                    Amigo novo = SolicitarDadosCadastrarAmigo(old, autenticado);
+
+                    Amigo AmigoEditado = SolicitarDadosCadastrarAmigo(old, autenticado);
+                    if (ServiceUsuario.EditarAmigo(autenticado, AmigoEditado)) {
+                        Console.WriteLine($"AMIGO {AmigoEditado.Nome} EDITADO COM SUCESSO");
+                    } else {
+                        Console.WriteLine("ERRO AO EDITAR AMIGO");
+                    }
 
                     break;
 
