@@ -19,7 +19,7 @@ namespace LibApp.DAO.Amgio {
         }
 
         public void CadastrarAmigo(Model.Amigo amigo, Usuario usuarioLogado) {
-            string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
+            string path = ReturnPath();
 
             using (StreamWriter writer = new StreamWriter(path, true)) {
                 writer.WriteLine(ReturnLineObj(amigo));
@@ -39,12 +39,47 @@ namespace LibApp.DAO.Amgio {
         }
 
         public bool ExcluirAmigo(Usuario usuario, string PalavraChave) {
-            if (ExcluirAmigoMemoria(usuario, PalavraChave)) {
+            if (ExcluirAmigoMemoria(usuario, PalavraChave) && ExcluirAmigoDocumento(usuario, PalavraChave)) {
                 return true;
             }
             return false;
         }
 
+        private bool ExcluirAmigoDocumento(Usuario Usuario, string PalavraChave) {
+            var LinesFile = new List<string>(getLines());
+            var newFile = ExcluiPalavraChave(LinesFile, PalavraChave);
+            var apagou = false;
+            
+            try {
+                File.WriteAllLines(ReturnPath(), newFile.ToArray());
+                apagou = true;
+            } catch(Exception e) {
+                Console.WriteLine(e.Message);
+                Console.ReadLine();
+            }               
+            return apagou;
+        }
+        
+        private List<string> ExcluiPalavraChave(List<string> lines, string PalavraChave) {
+            var NewLines = new List<string>();
+            foreach (var v in lines) {
+                if (!v.Contains(PalavraChave)) {
+                    NewLines.Add(v);
+                }
+            }
+            return NewLines;
+        }
+
+        private List<string> getLines() {
+            string line;
+            var file = getFile();
+            var list = new List<string>();
+            while ((line = file.ReadLine()) != null) {
+                list.Add(line);
+            }
+            file.Close();
+            return list;
+        }
 
         private bool ExcluirAmigoMemoria(Usuario usuario, string PalavraChave) {
             var i = 0;
@@ -99,13 +134,13 @@ namespace LibApp.DAO.Amgio {
 
         // Deve retornar uma instancia do file io
         private System.IO.StreamReader getFile() {
-            string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
+            string path = ReturnPath();
             System.IO.StreamReader file = new System.IO.StreamReader(path);
             return file;
         }
 
-        private string ReturnPath(String DirectoryName, String FileName) {
-            return System.IO.Path.Combine(DirectoryName, FileName);
+        private string ReturnPath() {
+            return System.IO.Path.Combine(DIRECTORY_NAME, FILE_DB_NAME);
         }
 
         // Deve retornar a string que será salva no arquivo

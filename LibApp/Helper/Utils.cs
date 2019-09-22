@@ -148,7 +148,7 @@ namespace LibApp.Helper {
         }
 
         private static bool OpcaoSelecionadaLogadoValido(int opcao) {
-            return opcao >= 1 && opcao <= 4;
+            return opcao >= 1 && opcao <= 6;
         }
 
         private static void InformarDadosUsuarioSelecionado(Amigo Amigo) {
@@ -196,7 +196,7 @@ namespace LibApp.Helper {
 
                 // Excluir amigo
                 case 5:                    
-                    if (ServiceUsuario.ExcluirAmigo(autenticado, "PRECISO SOLICITAR PALAVRA CHAVE")) {
+                    if (ServiceUsuario.ExcluirAmigo(autenticado, SolicitarPalavraChave())) {
                         Console.WriteLine("AMIGO EXCLUIDO COM SUCESSO");
                     } else {
                         Console.WriteLine("ERRO AO EXCLUIR AMIGO");
