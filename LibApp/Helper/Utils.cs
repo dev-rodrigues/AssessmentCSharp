@@ -166,7 +166,9 @@ namespace LibApp.Helper {
         }
 
         private static void InformarDadosUsuarioSelecionado(Amigo Amigo) {
-            Console.WriteLine($"{Amigo.Nome} {Amigo.SobreNome} {Amigo.Nascimento} - Dias pro aniversário: {Amigo.TotalDeDiasProAniversario()}");
+            var TotalDeDias = Amigo.TotalDeDiasProAniversario();
+            var DataFormatada = Amigo.Nascimento.ToString("dd/MM/yyyy");
+            Console.WriteLine($"{Amigo.Nome} {Amigo.SobreNome} - {DataFormatada} - Dias pro aniversário: {TotalDeDias}");
         }
 
         private static void EscreveMenuAutenticado() {
@@ -186,8 +188,12 @@ namespace LibApp.Helper {
                 case 1:
                     List<Amigo> amigos = ServiceUsuario.BuscarAmigo(SolicitarPalavraChave(), autenticado);
                     ListarAmigos(amigos);
-                    var selecao = EscolherAmigo();
-                    InformarDadosUsuarioSelecionado(amigos[selecao]);
+                    if (amigos.Count > 0) {
+                        var selecao = EscolherAmigo();
+                        InformarDadosUsuarioSelecionado(amigos[selecao]);
+                    } else {
+                        Console.WriteLine("NÃO FOI LOCALIZADO NENHUM AMIGO...");
+                    }                    
                     break;
 
                 //  cadastrar amigo
@@ -208,16 +214,20 @@ namespace LibApp.Helper {
                 // Editar amigo
                 case 4:
                     List<Amigo> Amigos = ServiceUsuario.BuscarAmigo(SolicitarPalavraChave(), autenticado);
-                    ListarAmigos(Amigos);
-                    var selecionado = EscolherAmigo();
-                    Amigo old = Amigos.ElementAt(selecionado);
-                    Console.WriteLine("Amigo selecionado: " + old.Nome);
+                    if (Amigos.Count > 0) {
+                        ListarAmigos(Amigos);
+                        var selecionado = EscolherAmigo();
+                        Amigo old = Amigos.ElementAt(selecionado);
+                        Console.WriteLine("Amigo selecionado: " + old.Nome);
 
-                    Amigo AmigoEditado = SolicitarDadosCadastrarAmigo(old, autenticado);
-                    if (ServiceUsuario.EditarAmigo(autenticado, AmigoEditado)) {
-                        Console.WriteLine($"AMIGO {AmigoEditado.Nome} EDITADO COM SUCESSO");
+                        Amigo AmigoEditado = SolicitarDadosCadastrarAmigo(old, autenticado);
+                        if (ServiceUsuario.EditarAmigo(autenticado, AmigoEditado)) {
+                            Console.WriteLine($"AMIGO {AmigoEditado.Nome} EDITADO COM SUCESSO");
+                        } else {
+                            Console.WriteLine("ERRO AO EDITAR AMIGO");
+                        }
                     } else {
-                        Console.WriteLine("ERRO AO EDITAR AMIGO");
+                        Console.WriteLine("SEM AMIGOS PARA EDITAR");
                     }
 
                     break;
@@ -249,9 +259,14 @@ namespace LibApp.Helper {
         }
 
         private static int EscolherAmigo() {
-            int selecao;
+            int selecao = 0;
             Console.WriteLine("Escolha um amigo");
-            selecao = Int32.Parse(Console.ReadLine());
+            try {
+                selecao = Int32.Parse(Console.ReadLine());
+            } catch(Exception e) {
+                selecao = 0;
+                Console.WriteLine("Valor inválido...");
+            }            
             return selecao;
         }
 

@@ -29,10 +29,28 @@ namespace LibApp.Model {
         }
 
         public int TotalDeDiasProAniversario() {
+            int dias = 0;
             int day = (Int32)this.Nascimento.Day;
             int month = (Int32)this.Nascimento.Month;
-            DateTime newDate = new DateTime(DateTime.Today.Year, month, day);
-            return (Int32)newDate.Subtract(DateTime.Today).TotalDays;
+
+            if (AniversarioJaPassou()) {
+                DateTime newDate = new DateTime(DateTime.Today.Year + 1, month, day);
+                dias = (Int32)newDate.Subtract(DateTime.Today).TotalDays;
+            } else {
+                DateTime newDate = new DateTime(DateTime.Today.Year, month, day);
+                dias = (Int32)newDate.Subtract(DateTime.Today).TotalDays;
+            }
+            return dias;
+        }
+
+        private bool AniversarioJaPassou() {
+            int MesAniversario = this.Nascimento.Month;
+            int MesAtual = DateTime.Now.Month;
+
+            if (MesAniversario < MesAtual) {
+                return true;
+            }
+            return false;
         }
     }
 }

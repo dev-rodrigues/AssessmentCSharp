@@ -19,11 +19,15 @@ namespace LibApp.DAO.Amgio {
         }
 
         public void CadastrarAmigo(Model.Amigo amigo, Usuario usuarioLogado) {
-            string path = ReturnPath();
 
-            using (StreamWriter writer = new StreamWriter(path, true)) {
+            using (StreamWriter writer = new StreamWriter(ReturnPath(), true)) {
                 writer.WriteLine(ReturnLineObj(amigo));
                 usuarioLogado.Amigos.Add(amigo);
+            }
+        }
+        private void CadastrarAmigo(Model.Amigo amigo) {
+            using (StreamWriter writer = new StreamWriter(ReturnPath(), true)) {
+                writer.WriteLine(ReturnLineObj(amigo));
             }
         }
 
@@ -96,9 +100,10 @@ namespace LibApp.DAO.Amgio {
             return false;
         }
 
+        //GERANDO DUPLICIDADE
         private bool EditarAmigoDocumento(Usuario UsuarioLogado, Model.Amigo AmigoEditado) {
             if (ExcluirAmigoDocumento(UsuarioLogado, AmigoEditado.Id)) {
-                CadastrarAmigo(AmigoEditado, UsuarioLogado);
+                CadastrarAmigo(AmigoEditado);
                 return true;
             }
             return false;
