@@ -45,21 +45,25 @@ namespace LibApp.DAO.Amgio {
             return false;
         }
 
+        public bool EditarAmigo(Usuario usuario, Model.Amigo NovoAmigo) {
+            return false;
+        }
+
         private bool ExcluirAmigoDocumento(Usuario Usuario, string PalavraChave) {
             var LinesFile = new List<string>(getLines());
             var newFile = ExcluiPalavraChave(LinesFile, PalavraChave);
             var apagou = false;
-            
+
             try {
                 File.WriteAllLines(ReturnPath(), newFile.ToArray());
                 apagou = true;
-            } catch(Exception e) {
+            } catch (Exception e) {
                 Console.WriteLine(e.Message);
                 Console.ReadLine();
-            }               
+            }
             return apagou;
         }
-        
+
         private List<string> ExcluiPalavraChave(List<string> lines, string PalavraChave) {
             var NewLines = new List<string>();
             foreach (var v in lines) {
@@ -81,11 +85,29 @@ namespace LibApp.DAO.Amgio {
             return list;
         }
 
+        // Deve editar um amigo do usuario logado
+        private bool EditaAmigoMemoria(Usuario UsuarioLogado, Model.Amigo AmigoEditado) {
+            if (ExcluirAmigoMemoria(UsuarioLogado, AmigoEditado.Id)) {
+                UsuarioLogado.Amigos.Add(AmigoEditado);
+                return true;
+            }
+            return false;
+        }
+        
+        private bool EditarAmigoDocumento(Usuario UsuarioLogado, Model.Amigo AmigoEditado) {
+            if (ExcluirAmigoDocumento(UsuarioLogado, AmigoEditado.Id)) {
+                CadastrarAmigo(AmigoEditado, UsuarioLogado);
+                return true;
+            }
+            return false;
+        }
+
+        // Deve excluir um amigo do usuario logado
         private bool ExcluirAmigoMemoria(Usuario usuario, string PalavraChave) {
             var i = 0;
 
             foreach (Model.Amigo a in usuario.Amigos) {
-                if (a.Nome.Contains(PalavraChave) || a.SobreNome.Contains(PalavraChave)) {
+                if (a.Id.Contains(PalavraChave) || a.Nome.Contains(PalavraChave) || a.SobreNome.Contains(PalavraChave)) {
                     usuario.Amigos.RemoveAt(i);
                     return true;
                 }

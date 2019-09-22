@@ -180,7 +180,7 @@ namespace LibApp.Helper {
                 case 2:
                     Amigo a = ServiceUsuario.CadastrarAmigo(SolicitarDadosCadastrarAmigo(), autenticado);
                     if (a == null) {
-                        Console.WriteLine("deu ruim");
+                        Console.WriteLine("ERRO AO EXCLUIR O AMIGO");
                     }
                     break;
 
@@ -204,7 +204,7 @@ namespace LibApp.Helper {
                     break;
 
                 default:
-                    Console.WriteLine("ESTOU PERDIDO, HELP!");
+                    Console.WriteLine("OPÇÃO INVÁLIDA");
                     break;
             }
             Console.ReadKey();
@@ -256,7 +256,7 @@ namespace LibApp.Helper {
                     break;
 
                 default:
-                    Console.WriteLine("'TO PERDIDO'");
+                    Console.WriteLine("'OPÇÃO INVALIDA'");
                     break;
             }
         }

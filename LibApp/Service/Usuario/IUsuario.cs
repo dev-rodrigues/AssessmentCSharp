@@ -18,6 +18,8 @@ namespace LibApp.Service {
 
         bool ExcluirAmigo(Model.Usuario UsuarioLogado, string PalavraChave);
 
+        bool EditarAmigo(Model.Usuario UsuarioLogado, Amigo AmigoEditado);
+
         Model.Usuario Logar(string[] vetor);
 
         bool HasRegisteredUser();

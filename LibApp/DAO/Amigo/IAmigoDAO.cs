@@ -18,5 +18,7 @@ namespace LibApp.DAO.Amigo {
 
         bool ExcluirAmigo(Usuario usuario, string PalavraChave);
 
+        bool EditarAmigo(Usuario usuario, Model.Amigo AmigoEditado);
+
     }
 }

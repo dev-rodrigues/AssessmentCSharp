@@ -17,6 +17,7 @@ namespace LibApp.Service.Usuario {
 
         private IAmigo AmigoDAO = ServiceLab.GetInstanceOf<AmigoDAOImpl>();
 
+        // Deve cadastrar um usuario no sistema
         public Model.Usuario CadastrarUsuario(string[] dadosColetados) {
             //BUSCAR ID válido
             string id = "u_" + UsuarioDAO.getNextId();
@@ -53,18 +54,27 @@ namespace LibApp.Service.Usuario {
             return AmigoDAO.BuscarAmigos(PalavraChave, UsuarioLogado);
         }
 
+        // Deve retonar uma lista com todos os amigos do usuario
         public List<Model.Amigo> AllAmigos(Model.Usuario UsuarioLogado) {
             return UsuarioLogado.Amigos;
         }
 
+        // Deve Excluir um amigo em função do usuário logado e da palavra chave
         public bool ExcluirAmigo(Model.Usuario UsuarioLogado, string PalavraChave) {
             return AmigoDAO.ExcluirAmigo(UsuarioLogado, PalavraChave);
         }
 
+        // Deve Editar um amigo em função do usuário logado e da palavra chave
+        public bool EditarAmigo(Model.Usuario UsuarioLogado, Amigo AmigoEditado) {
+            return AmigoDAO.EditarAmigo(UsuarioLogado, AmigoEditado);
+        }
+
+        // Deve verificar se existe algum usuário registrado no sistema
         bool IUsuario.HasRegisteredUser() {
             return UsuarioDAO.HasRegisteredUser();
         }
 
+        // Deve autenticar o usuário no sistema
         Model.Usuario IUsuario.Logar(string[] dadosColetados) {
             return UsuarioDAO.Find(dadosColetados[0], dadosColetados[1]);
         }
