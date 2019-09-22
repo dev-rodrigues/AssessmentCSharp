@@ -57,6 +57,10 @@ namespace LibApp.Service.Usuario {
             return UsuarioLogado.Amigos;
         }
 
+        public bool ExcluirAmigo(Model.Usuario UsuarioLogado, string PalavraChave) {
+            return AmigoDAO.ExcluirAmigo(UsuarioLogado, PalavraChave);
+        }
+
         bool IUsuario.HasRegisteredUser() {
             return UsuarioDAO.HasRegisteredUser();
         }

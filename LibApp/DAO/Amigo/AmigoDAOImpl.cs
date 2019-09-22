@@ -38,13 +38,34 @@ namespace LibApp.DAO.Amgio {
             return usuario.Amigos;
         }
 
+        public bool ExcluirAmigo(Usuario usuario, string PalavraChave) {
+            if (ExcluirAmigoMemoria(usuario, PalavraChave)) {
+                return true;
+            }
+            return false;
+        }
+
+
+        private bool ExcluirAmigoMemoria(Usuario usuario, string PalavraChave) {
+            var i = 0;
+
+            foreach (Model.Amigo a in usuario.Amigos) {
+                if (a.Nome.Contains(PalavraChave) || a.SobreNome.Contains(PalavraChave)) {
+                    usuario.Amigos.RemoveAt(i);
+                    return true;
+                }
+                i++;
+            }
+            return false;
+        }
+
         // Deve retornar uma lista de amigos
         private List<Model.Amigo> getAmigos() {
             string line;
             var file = getFile();
             var Amigos = new List<Model.Amigo>();
 
-            while((line = file.ReadLine()) != null) {
+            while ((line = file.ReadLine()) != null) {
                 String[] fracoes = line.Split(',');
                 Amigos.AddRange(getAmigosAux(fracoes));
             }
@@ -57,7 +78,7 @@ namespace LibApp.DAO.Amgio {
             var localizados = new List<Model.Amigo>();
 
             foreach (Model.Amigo a in UsuarioLogado.Amigos) {
-                if ( a.Nome.Contains(PalavraChave) || a.SobreNome.Contains(PalavraChave)) {
+                if (a.Nome.Contains(PalavraChave) || a.SobreNome.Contains(PalavraChave)) {
                     localizados.Add(a);
                 }
             }
@@ -69,7 +90,7 @@ namespace LibApp.DAO.Amgio {
             List<Model.Amigo> Amigos = new List<Model.Amigo>();
             for (int i = 0; i < fracoes.Length; i++) {
                 if (fracoes[i].Contains("a_")) {
-                    Model.Amigo  a = new Model.Amigo(fracoes[0], fracoes[1], fracoes[2], Convert.ToDateTime(fracoes[3]), fracoes[4]);
+                    Model.Amigo a = new Model.Amigo(fracoes[0], fracoes[1], fracoes[2], Convert.ToDateTime(fracoes[3]), fracoes[4]);
                     Amigos.Add(a);
                 }
             }
@@ -79,7 +100,7 @@ namespace LibApp.DAO.Amgio {
         // Deve retornar uma instancia do file io
         private System.IO.StreamReader getFile() {
             string path = ReturnPath(DIRECTORY_NAME, FILE_DB_NAME);
-            System.IO.StreamReader file = new System.IO.StreamReader(path);            
+            System.IO.StreamReader file = new System.IO.StreamReader(path);
             return file;
         }
 

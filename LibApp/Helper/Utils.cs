@@ -105,7 +105,7 @@ namespace LibApp.Helper {
                     ExecutaAcaoDoUsuarioLogado(value, autenticado);
                 } else {
                     Console.WriteLine("Opcao invalida");
-                }                
+                }
                 value = int.MaxValue;
             }
             Console.ReadLine();
@@ -167,8 +167,8 @@ namespace LibApp.Helper {
         }
 
         private static void ExecutaAcaoDoUsuarioLogado(int opcaoSelecionada, Usuario autenticado) {
-            switch (opcaoSelecionada) {                
-                //consultar amigo
+            switch (opcaoSelecionada) {
+                //  consultar amigo
                 case 1:
                     List<Amigo> amigos = ServiceUsuario.BuscarAmigo(SolicitarPalavraChave(), autenticado);
                     ListarAmigos(amigos);
@@ -176,7 +176,7 @@ namespace LibApp.Helper {
                     InformarDadosUsuarioSelecionado(amigos[selecao]);
                     break;
 
-                //cadastrar amigo
+                //  cadastrar amigo
                 case 2:
                     Amigo a = ServiceUsuario.CadastrarAmigo(SolicitarDadosCadastrarAmigo(), autenticado);
                     if (a == null) {
@@ -184,10 +184,23 @@ namespace LibApp.Helper {
                     }
                     break;
 
-                //listar todos os amigos
+                //  listar todos os amigos
                 case 3:
                     List<Amigo> TodosAmigos = ServiceUsuario.AllAmigos(autenticado);
                     ListarAmigos(TodosAmigos);
+                    break;
+
+                // Editar amigo
+                case 4:
+                    break;
+
+                // Excluir amigo
+                case 5:                    
+                    if (ServiceUsuario.ExcluirAmigo(autenticado, "PRECISO SOLICITAR PALAVRA CHAVE")) {
+                        Console.WriteLine("AMIGO EXCLUIDO COM SUCESSO");
+                    } else {
+                        Console.WriteLine("ERRO AO EXCLUIR AMIGO");
+                    }
                     break;
 
                 default:
@@ -201,7 +214,7 @@ namespace LibApp.Helper {
             int i = 0;
             Console.Clear();
             Console.WriteLine("AMIGOS LOCALIZADO");
-            foreach(Amigo a in amigos) {
+            foreach (Amigo a in amigos) {
                 Console.WriteLine($"{i} - {a.Nome} {a.SobreNome}");
                 i++;
             }

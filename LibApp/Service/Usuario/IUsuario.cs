@@ -9,12 +9,14 @@ namespace LibApp.Service {
     public interface IUsuario {
 
         Model.Usuario CadastrarUsuario(string[] vetor);
-        
+
         Model.Amigo CadastrarAmigo(string[] vetor, Model.Usuario UsuarioLogado);
 
         List<Model.Amigo> BuscarAmigo(string PalavraChave, Model.Usuario UsuarioLogado);
 
         List<Model.Amigo> AllAmigos(Model.Usuario UsuarioLogado);
+
+        bool ExcluirAmigo(Model.Usuario UsuarioLogado, string PalavraChave);
 
         Model.Usuario Logar(string[] vetor);
 
