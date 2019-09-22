@@ -14,5 +14,7 @@ namespace LibApp.DAO.Amigo {
 
         List<Model.Amigo> BuscarAmigos(string PalavraChave, Usuario IdUsuario);
 
+        List<Model.Amigo> BuscarAmigos(Usuario usuario);
+
     }
 }

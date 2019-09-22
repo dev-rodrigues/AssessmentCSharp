@@ -53,6 +53,10 @@ namespace LibApp.Service.Usuario {
             return AmigoDAO.BuscarAmigos(PalavraChave, UsuarioLogado);
         }
 
+        public List<Model.Amigo> AllAmigos(Model.Usuario UsuarioLogado) {
+            return UsuarioLogado.Amigos;
+        }
+
         bool IUsuario.HasRegisteredUser() {
             return UsuarioDAO.HasRegisteredUser();
         }

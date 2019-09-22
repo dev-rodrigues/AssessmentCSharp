@@ -91,23 +91,13 @@ namespace LibApp.Helper {
             Console.WriteLine("3 - SAIR");
         }
 
-        private static void EscreveMenuAutenticado() {
-            Console.Clear();
-            Console.WriteLine(" SELECIONE UMA OPÇÃO  ");
-            Console.WriteLine(" 1 - CONSULTAR AMIGO  ");
-            Console.WriteLine(" 2 - CADASTRAR AMIGO  ");
-            Console.WriteLine(" 3 - LISTAR AMIGOS    ");
-            Console.WriteLine(" 4 - EXCLUIR AMIGO    ");
-            Console.WriteLine(" 5 - RETORNAR         ");
-        }
-
         private static void SolicitaAcaoAutenticado(Usuario autenticado) {
             int value = int.MaxValue;
 
             while (value == int.MaxValue) {
                 EscreveMenuAutenticado();
                 value = SolicitaAcao();
-                if (value == 5) {
+                if (value == 6) {
                     break;
                 }
 
@@ -161,17 +151,29 @@ namespace LibApp.Helper {
             return opcao >= 1 && opcao <= 4;
         }
 
-        private static void ExecutaAcaoDoUsuarioLogado(int opcaoSelecionada, Usuario autenticado) {
-            Console.WriteLine(opcaoSelecionada);
+        private static void InformarDadosUsuarioSelecionado(Amigo Amigo) {
+            Console.WriteLine($"{Amigo.Nome} {Amigo.SobreNome} {Amigo.Nascimento} - Dias pro aniversário: {Amigo.TotalDeDiasProAniversario()}");
+        }
 
-            switch (opcaoSelecionada) {
-                
+        private static void EscreveMenuAutenticado() {
+            Console.Clear();
+            Console.WriteLine(" SELECIONE UMA OPÇÃO     ");
+            Console.WriteLine(" 1 - CONSULTAR AMIGO     ");
+            Console.WriteLine(" 2 - CADASTRAR AMIGO     ");
+            Console.WriteLine(" 3 - LISTAR AMIGOS       ");
+            Console.WriteLine(" 4 - EDITAR AMIGO        ");
+            Console.WriteLine(" 5 - EXCLUIR AMIGO       ");
+            Console.WriteLine(" 6 - RETORNAR            ");
+        }
+
+        private static void ExecutaAcaoDoUsuarioLogado(int opcaoSelecionada, Usuario autenticado) {
+            switch (opcaoSelecionada) {                
                 //consultar amigo
                 case 1:
-                    List<Amigo> amgios = ServiceUsuario.BuscarAmigo(SolicitarPalavraChave(), autenticado);
-                    EscreveDados(amgios);
+                    List<Amigo> amigos = ServiceUsuario.BuscarAmigo(SolicitarPalavraChave(), autenticado);
+                    ListarAmigos(amigos);
                     var selecao = EscolherAmigo();
-                    Console.WriteLine("amigo selecionado" + selecao);
+                    InformarDadosUsuarioSelecionado(amigos[selecao]);
                     break;
 
                 //cadastrar amigo
@@ -182,6 +184,12 @@ namespace LibApp.Helper {
                     }
                     break;
 
+                //listar todos os amigos
+                case 3:
+                    List<Amigo> TodosAmigos = ServiceUsuario.AllAmigos(autenticado);
+                    ListarAmigos(TodosAmigos);
+                    break;
+
                 default:
                     Console.WriteLine("ESTOU PERDIDO, HELP!");
                     break;
@@ -189,7 +197,7 @@ namespace LibApp.Helper {
             Console.ReadKey();
         }
 
-        private static void EscreveDados(List<Amigo> amigos) {
+        private static void ListarAmigos(List<Amigo> amigos) {
             int i = 0;
             Console.Clear();
             Console.WriteLine("AMIGOS LOCALIZADO");

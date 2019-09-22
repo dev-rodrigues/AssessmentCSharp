@@ -14,6 +14,8 @@ namespace LibApp.Service {
 
         List<Model.Amigo> BuscarAmigo(string PalavraChave, Model.Usuario UsuarioLogado);
 
+        List<Model.Amigo> AllAmigos(Model.Usuario UsuarioLogado);
+
         Model.Usuario Logar(string[] vetor);
 
         bool HasRegisteredUser();

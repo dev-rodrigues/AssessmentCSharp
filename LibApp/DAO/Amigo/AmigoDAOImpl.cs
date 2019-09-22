@@ -33,7 +33,11 @@ namespace LibApp.DAO.Amgio {
             var Amigos = getAmigosAux(PalavraChave, UsuarioLogado);
             return Amigos;
         }
-         
+
+        public List<Model.Amigo> BuscarAmigos(Usuario usuario) {
+            return usuario.Amigos;
+        }
+
         // Deve retornar uma lista de amigos
         private List<Model.Amigo> getAmigos() {
             string line;
