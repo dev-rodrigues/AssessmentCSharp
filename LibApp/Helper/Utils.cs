@@ -44,6 +44,20 @@ namespace LibApp.Helper {
             return vet;
         }
 
+        // TODO VALIDAR DADOS
+        public static Amigo SolicitarDadosCadastrarAmigo(Amigo Old, Usuario UsuarioLogado) {
+            string primeiroNome, sobrenome, data;
+            Console.WriteLine("Digite o primeiro nome do seu amigo");
+            primeiroNome = Console.ReadLine();
+
+            Console.WriteLine("Digite o sobre nome do seu amigo");
+            sobrenome = Console.ReadLine();
+
+            Console.WriteLine("Digite a data de nascimento do seu amigo no formato YYYY-MM-DD");
+            data = Console.ReadLine();
+            return new Amigo(Old.Id, primeiroNome, sobrenome, DateTime.Parse(data), UsuarioLogado.Id);
+        }
+
         public static string SolicitarPalavraChave() {
             string palavraChave;
             Console.WriteLine("Digite o nome ou sobre nome do amigo");
@@ -192,10 +206,17 @@ namespace LibApp.Helper {
 
                 // Editar amigo
                 case 4:
+                    List<Amigo> Amigos = ServiceUsuario.BuscarAmigo(SolicitarPalavraChave(), autenticado);
+                    ListarAmigos(Amigos);
+                    var selecionado = EscolherAmigo();
+                    Amigo old = Amigos.ElementAt(selecionado);
+                    Console.WriteLine("Amigo selecionado: " + old.Nome);
+                    Amigo novo = SolicitarDadosCadastrarAmigo(old, autenticado);
+
                     break;
 
                 // Excluir amigo
-                case 5:                    
+                case 5:
                     if (ServiceUsuario.ExcluirAmigo(autenticado, SolicitarPalavraChave())) {
                         Console.WriteLine("AMIGO EXCLUIDO COM SUCESSO");
                     } else {
