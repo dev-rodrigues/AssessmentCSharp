@@ -25,6 +25,8 @@ namespace LibApp.DAO.Amgio {
                 usuarioLogado.Amigos.Add(amigo);
             }
         }
+
+        // Deve Cadastrar um amigo
         private void CadastrarAmigo(Model.Amigo amigo) {
             using (StreamWriter writer = new StreamWriter(ReturnPath(), true)) {
                 writer.WriteLine(ReturnLineObj(amigo));
@@ -35,6 +37,19 @@ namespace LibApp.DAO.Amgio {
         public List<Model.Amigo> BuscarAmigos(string PalavraChave, Usuario UsuarioLogado) {
             var Amigos = getAmigosAux(PalavraChave, UsuarioLogado);
             return Amigos;
+        }
+
+        // Deve retornar uma lista de aniversariantes do dia
+        public List<Model.Amigo> BuscarAniversariantesDoDia(Usuario usuario) {
+            var DataAtual = DateTime.Now;
+            var aniversariantes = new List<Model.Amigo>();
+
+            foreach(var amigo in usuario.Amigos) {
+                if (amigo.Nascimento.Month == DataAtual.Month && amigo.Nascimento.Day == DataAtual.Day) {
+                    aniversariantes.Add(amigo);
+                }
+            }
+            return aniversariantes;
         }
 
         public List<Model.Amigo> BuscarAmigos(Usuario usuario) {

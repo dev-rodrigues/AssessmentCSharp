@@ -16,6 +16,8 @@ namespace LibApp.Service {
 
         List<Model.Amigo> AllAmigos(Model.Usuario UsuarioLogado);
 
+        List<Model.Amigo> AniversariantesDoDia(Model.Usuario UsuarioLogado);
+
         bool ExcluirAmigo(Model.Usuario UsuarioLogado, string PalavraChave);
 
         bool EditarAmigo(Model.Usuario UsuarioLogado, Amigo AmigoEditado);

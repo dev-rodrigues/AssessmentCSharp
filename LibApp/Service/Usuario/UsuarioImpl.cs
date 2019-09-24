@@ -54,6 +54,10 @@ namespace LibApp.Service.Usuario {
             return AmigoDAO.BuscarAmigos(PalavraChave, UsuarioLogado);
         }
 
+        public List<Amigo> AniversariantesDoDia(Model.Usuario UsuarioLogado) {
+            return AmigoDAO.BuscarAniversariantesDoDia(UsuarioLogado);
+        }
+
         // Deve retonar uma lista com todos os amigos do usuario
         public List<Model.Amigo> AllAmigos(Model.Usuario UsuarioLogado) {
             return UsuarioLogado.Amigos;

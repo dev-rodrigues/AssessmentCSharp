@@ -111,7 +111,7 @@ namespace LibApp.Helper {
             while (value == int.MaxValue) {
                 EscreveMenuAutenticado();
                 value = SolicitaAcao();
-                if (value == 6) {
+                if (value == 7) {
                     break;
                 }
 
@@ -162,7 +162,7 @@ namespace LibApp.Helper {
         }
 
         private static bool OpcaoSelecionadaLogadoValido(int opcao) {
-            return opcao >= 1 && opcao <= 6;
+            return opcao >= 1 && opcao <= 7;
         }
 
         private static void InformarDadosUsuarioSelecionado(Amigo Amigo) {
@@ -173,13 +173,22 @@ namespace LibApp.Helper {
 
         private static void EscreveMenuAutenticado() {
             Console.Clear();
-            Console.WriteLine(" SELECIONE UMA OPÇÃO     ");
-            Console.WriteLine(" 1 - CONSULTAR AMIGO     ");
-            Console.WriteLine(" 2 - CADASTRAR AMIGO     ");
-            Console.WriteLine(" 3 - LISTAR AMIGOS       ");
-            Console.WriteLine(" 4 - EDITAR AMIGO        ");
-            Console.WriteLine(" 5 - EXCLUIR AMIGO       ");
-            Console.WriteLine(" 6 - RETORNAR            ");
+            Console.WriteLine(" SELECIONE UMA OPÇÃO         ");
+            Console.WriteLine(" 1 - CONSULTAR AMIGO         ");
+            Console.WriteLine(" 2 - CADASTRAR AMIGO         ");
+            Console.WriteLine(" 3 - LISTAR AMIGOS           ");
+            Console.WriteLine(" 4 - EDITAR AMIGO            ");
+            Console.WriteLine(" 5 - EXCLUIR AMIGO           ");
+            Console.WriteLine(" 6 - LISTAR ANIVERSARIANTES  ");
+            Console.WriteLine(" 7 - RETORNAR                ");
+        }
+
+        private static void ApresentarAniversariantes(List<Amigo> Aniversariantes) {
+            foreach(var a in Aniversariantes) {
+                Console.WriteLine($"{a.Nome} {a.SobreNome} {a.Nascimento.ToString("dd/MM/yyy")}");
+            }
+            Console.WriteLine();
+            Console.ReadLine();
         }
 
         private static void ExecutaAcaoDoUsuarioLogado(int opcaoSelecionada, Usuario autenticado) {
@@ -240,6 +249,13 @@ namespace LibApp.Helper {
                         Console.WriteLine("ERRO AO EXCLUIR AMIGO");
                     }
                     break;
+                
+                // Listar aniversariantes
+                case 6:
+                    Console.WriteLine("Aniversariantes do dia");
+                    var aniversariantes = (ServiceUsuario.AniversariantesDoDia(autenticado));
+                    ApresentarAniversariantes(aniversariantes);
+                    break;
 
                 default:
                     Console.WriteLine("OPÇÃO INVÁLIDA");
@@ -288,7 +304,7 @@ namespace LibApp.Helper {
 
                 // registrar novo usuario
                 case 2:
-                    ServiceUsuario.CadastrarUsuario(SolicitarDadosCadastrar());
+                    ServiceUsuario.CadastrarUsuario(SolicitarDadosCadastrar());                    
                     break;
 
                 // sair

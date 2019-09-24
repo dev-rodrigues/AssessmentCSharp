@@ -16,6 +16,8 @@ namespace LibApp.DAO.Amigo {
 
         List<Model.Amigo> BuscarAmigos(Usuario usuario);
 
+        List<Model.Amigo> BuscarAniversariantesDoDia(Usuario usuario);
+
         bool ExcluirAmigo(Usuario usuario, string PalavraChave);
 
         bool EditarAmigo(Usuario usuario, Model.Amigo AmigoEditado);
